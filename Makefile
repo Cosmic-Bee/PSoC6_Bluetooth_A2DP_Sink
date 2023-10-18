@@ -102,7 +102,7 @@ INCLUDES+= ./source/codec/include
 
 ifneq (,$(findstring SBC_CODEC,$(COMPONENTS)))
 SBC_CODEC_DEFINES=ENABLE_SBC_DECODE ENABLE_SBC_ENCODE
-DEFINES+= $(SBC_CODEC_DEFINES)
+DEFINES+= $(SBC_CODEC_DEFINES) CY_USING_HAL
 endif
 
 # Add additional defines to the build process (without a leading -D).

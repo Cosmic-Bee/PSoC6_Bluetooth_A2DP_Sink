@@ -42,11 +42,12 @@
 #ifndef I2S_AUDIO_PLATFORM_H
 #define I2S_AUDIO_PLATFORM_H
 
-#include "cyhal.h"
 #include "main.h"
+#include "cyhal.h"
+#include "cybsp.h"
 
 // Initialize the I2S audio interface
-void is2_audio_init(void);
+void i2s_audio_init(void);
 
 // Deinitialize the I2S audio interface
 void i2s_audio_deinit(void);

@@ -400,7 +400,7 @@ void a2dp_sink_control_cback( wiced_bt_a2dp_sink_event_t event,
         a2dp_audio_decoder_init();
 
         WICED_BT_TRACE(" Now configuring Audio Driver...\n");
-        is2_audio_init();
+        i2s_audio_init();
 
         break;
 

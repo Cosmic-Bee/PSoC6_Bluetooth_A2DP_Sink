@@ -402,7 +402,7 @@ wiced_bt_device_address_t bt_device_address = { 0x22, 0x11, 0x44, 0x33, 0x66, 0x
 *   codec and audio tuning configurations
 ****************************************************************************/
 /*  Recommended max_bitpool for high quality audio */
-#define BT_AUDIO_A2DP_SBC_MAX_BITPOOL   53
+#define BT_AUDIO_A2DP_SBC_MAX_BITPOOL   30
 
 /* Array of decoder capabilities information. */
 wiced_bt_a2dp_codec_info_t bt_audio_codec_capabilities[] =
@@ -413,14 +413,14 @@ wiced_bt_a2dp_codec_info_t bt_audio_codec_capabilities[] =
        {
            .sbc =
            {
-               (A2D_SBC_IE_SAMP_FREQ_44),    /* samp_freq */
-               (A2D_SBC_IE_CH_MD_MONO   | A2D_SBC_IE_CH_MD_STEREO |
-                A2D_SBC_IE_CH_MD_JOINT  | A2D_SBC_IE_CH_MD_DUAL),      /* ch_mode */
-               (A2D_SBC_IE_BLOCKS_16),        /* block_len */
-               (A2D_SBC_IE_SUBBAND_4    | A2D_SBC_IE_SUBBAND_8),       /* num_subbands */
-               (A2D_SBC_IE_ALLOC_MD_L   | A2D_SBC_IE_ALLOC_MD_S),      /* alloc_mthd */
-               BT_AUDIO_A2DP_SBC_MAX_BITPOOL,                          /* max_bitpool for high quality audio */
-               A2D_SBC_IE_MIN_BITPOOL                                  /* min_bitpool */
+                   (A2D_SBC_IE_SAMP_FREQ_44),    /* samp_freq */
+                   (A2D_SBC_IE_CH_MD_MONO | A2D_SBC_IE_CH_MD_STEREO |
+                    A2D_SBC_IE_CH_MD_JOINT  | A2D_SBC_IE_CH_MD_DUAL),      /* ch_mode */
+                   (A2D_SBC_IE_BLOCKS_16),        /* block_len */
+                   (A2D_SBC_IE_SUBBAND_8),       /* num_subbands */
+                   (A2D_SBC_IE_ALLOC_MD_L),      /* alloc_mthd */
+                   BT_AUDIO_A2DP_SBC_MAX_BITPOOL,                          /* max_bitpool for high quality audio */
+                   A2D_SBC_IE_MIN_BITPOOL                                  /* min_bitpool */
            }
        }
    },

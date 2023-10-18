@@ -48,7 +48,7 @@
 
 #define BT_STACK_HEAP_SIZE              (0XF00U)
 
-#define BT_TASK_STACK_SIZE              (128)
+#define BT_TASK_STACK_SIZE              (256)
 #define BT_TASK_PRIORITY                (configMAX_PRIORITIES - 6)
 
 #define LED_BLINK_TIMER_CLOCK_HZ        (10000)
@@ -59,11 +59,11 @@
 
 /* Master Clock (MCLK) Settings */
 #define SAMPLE_RATE_HZ		44100u
-#define MCLK_FREQ_HZ        (256u * SAMPLE_RATE_HZ)    /* in Hz (Ideally 4.096 MHz) */
+#define MCLK_FREQ_HZ        11289600u
 
 #define MCLK_DUTY_CYCLE     50.0f       /* in %  */
 /* Clock Settings */
-#define AUDIO_SYS_CLOCK_HZ  (MCLK_FREQ_HZ * 8u)   /* in Hz (Ideally 98.304 MHz) */
+#define AUDIO_SYS_CLOCK_HZ  90316800u
 /* PWM MCLK Pin */
 #define MCLK_PIN            P5_0
 /* Debounce delay for the button */
@@ -109,7 +109,6 @@ cyhal_pwm_t mclk_pwm;
 cyhal_i2s_t i2s;
 cyhal_clock_t audio_clock;
 cyhal_clock_t pll_clock;
-cyhal_clock_t fll_clock;
 cyhal_clock_t system_clock;
 
 /* HAL Configs */
@@ -418,17 +417,12 @@ static void clock_init(void)
     /* Initialize the audio subsystem clock (HFCLK1) */
     cyhal_clock_reserve(&audio_clock, &CYHAL_CLOCK_HF[1]);
     cyhal_clock_set_source(&audio_clock, &pll_clock);
-
-    /* Drop HFCK1 frequency for power savings */
     cyhal_clock_set_divider(&audio_clock, HFCLK1_CLK_DIVIDER);
     cyhal_clock_set_enabled(&audio_clock, true, true);
 
     /* Initialize the system clock (HFCLK0) */
     cyhal_clock_reserve(&system_clock, &CYHAL_CLOCK_HF[0]);
     cyhal_clock_set_source(&system_clock, &pll_clock);
-
-    /* Disable the FLL for power savings */
-    cyhal_clock_reserve(&fll_clock, &CYHAL_CLOCK_FLL);
-    cyhal_clock_set_enabled(&fll_clock, false, true);
+    cyhal_clock_set_enabled(&system_clock, true, true);
 }
 /* [] END OF FILE */
