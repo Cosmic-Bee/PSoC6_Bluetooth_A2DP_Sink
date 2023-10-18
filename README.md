@@ -28,9 +28,6 @@ This community code example (CCE) demonstrates streaming 44.1KHz, Stereo Audio w
 
 ## Software setup
 
-Install a terminal emulator if you don't have one. Instructions in this document use [Tera Term](https://ttssh2.osdn.jp/index.html.en).
-
-This example requires no additional software or tools.
 
 ## Using the code example
 
@@ -134,65 +131,13 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
 ## Operation
 
-1. Since any external Bluetooth® speaker/earbuds can be used, please edit the `BDA_ADDRESS_BYTE_X` macros with the correct Bluetooth® device address of the speaker/earbuds.
+1. Using the PMOD interface use a i2s2 device setup for output
 
-2. Please find out the Bluetooth® Device Address (BDA) of the external Bluetooth® speaker/earbuds through any Bluetooth® Scanner app available on the smartphone.
+2. Compile and run the demo, a new bluetooth device will be available for connection
 
-3. Edit the Bluetooth® Device Address in the file `source/source_bluetooth/a2dp_source.c`. 
+3. Play music
 
-4. For eg) if the Bluetooth® Device Address  of the BT speaker/earbuds is `0D 01 74 C3 45 7B`, then add the Bluetooth® Device Address of the external Bluetooth® speaker/earbuds in the macros as below.
-
-   ```/* Bluetooth Device Address of the Speaker*/
-   /* Bluetooth Device Address of the Speaker/Earbud */
-   #define BDA_ADDRESS_BYTE_0					0x0D
-   #define BDA_ADDRESS_BYTE_1					0x01
-   #define BDA_ADDRESS_BYTE_2					0x74
-   #define BDA_ADDRESS_BYTE_3					0xC3
-   #define BDA_ADDRESS_BYTE_4					0x45
-   #define BDA_ADDRESS_BYTE_5					0x7B
-   
-   ```
-
-5. Connect the board to your PC using the provided USB cable through the KitProg3 USB connector.
-
-6. Open a terminal program and select the KitProg3 COM port. Set the serial port parameters to 8N1 and 115200 baud.
-
-7. Program the board using one of the following:
-
-   <details><summary><b>Using Eclipse IDE for ModusToolbox&trade; software</b></summary>
-
-      1. Select the application project in the Project Explorer.
-
-      2. In the **Quick Panel**, scroll down, and click **\<Application Name> Program (KitProg3_MiniProg4)**.
-   </details>
-
-   <details><summary><b>Using CLI</b></summary>
-
-     From the terminal, execute the `make program` command to build and program the application using the default toolchain to the default target. The default toolchain is specified in the application's Makefile but you can override this value manually:
-      ```
-      make program TOOLCHAIN=<toolchain>
-      ```
-
-      Example:
-      ```
-      make program TOOLCHAIN=GCC_ARM
-      ```
-   </details>
-
-8. After programming, the application starts automatically and will try to pair and connect to the Bluetooth® speaker/earbuds.
-
-9. If connection is successful, pressing the user-button will start the music playback.
-
-10. Pressing the user-button again will pause the playback.
-
-11. If the board is `CY8CKIT-062S2-43012`, then the blinking RED LED will change to blinking GREEN LED on successful connection to the Bluetooth® speaker/earbuds.
-    On disconnection, it will switch back to blinking RED LED.
-
-12. If the board is `CY8CPROTO-062-4343W`, since there is only RED LED, it will continue blinking irrespective of the connection status.
-
-13. If the Bluetooth® speaker/earbuds is disconnected, to reconnect back, please reset the  PSoC&trade; 6 board.
-
-14. If there is a connection failure with BT speaker/earbuds, please reset the PSoC&trade; 6 board and the Bluetooth® speaker/earbuds.
+4. If there is a connection failure, please reset the PSoC&trade; 6 board and the Bluetooth® speaker/earbuds.
 
     
 
@@ -204,13 +149,9 @@ You can debug the example to step through the code. In the IDE, use the **\<Appl
 
 ## Design and implementation
 
-This CCE, demonstrates A2DP source on PSoC&trade; 6. Two tasks are created, one for initial Bluetooth® connection setup and another for streaming audio via A2DP.
+This CCE, demonstrates A2DP sink on PSoC&trade; 6. Two tasks are created, one for initial Bluetooth® connection setup and another for streaming audio via A2DP.
 
-A short audio clip with PCM (Pulse-Code Modulation) samples stored as char arrays is available in the source code.  The audio clip is of 48KHz, 16 bit, stereo audio. This audio clip is passed through a software codec that converts from PCM to SBC (sub-band coding) encoding.
-
-On connection establishment, the PSoC&trade; 6 configures the Bluetooth® speaker/earbuds to 48KHz, stereo with the appropriate SBC parameters.
-
-The streaming task sends the encoded packets using `wiced_bt_avdt_write_req` to send packets to the Bluetooth® Controller which then sends it to the Bluetooth® speaker/earbuds.
+A short audio clip with PCM (Pulse-Code Modulation) samples stored as char arrays is available in the source code.  The audio is of 44.1Khz, 16 bit, stereo audio. T
 
 ## Other resources
 
